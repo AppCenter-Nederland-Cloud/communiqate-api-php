@@ -1,0 +1,31 @@
+{
+  "name": "acn-cloud/communiqate-api-php",
+  "description": "PHP wrapper for CommuniQate API",
+  "type": "library",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Niek Poorthuis",
+      "email": "niek@appcenternederland.nl"
+    }
+  ],
+  "require": {
+    "php": "^7.4 || ^8.0",
+    "guzzlehttp/guzzle": "^7.2",
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "CommuniQate\\": "src/CommuniQate"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "CommuniQate\\Tests\\": "tests/"
+    }
+  }
+}
