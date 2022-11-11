@@ -22,4 +22,9 @@ class Contacts extends BaseResource implements ContactsContract
     {
         return $this->makeRequest('DELETE', "contacts/$phoneOrContactId/attributes", $data);
     }
+
+    public function unsubscribeContact(string $phoneOrContactId): ApiResponse
+    {
+        return $this->makeRequest('POST', "contacts/$phoneOrContactId/unsubscribe");
+    }
 }

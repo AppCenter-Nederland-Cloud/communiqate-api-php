@@ -14,7 +14,7 @@ interface ContactsContract
 {
     /**
      * Get a list of all attributes & values set for the contact
-     * @param string $phoneOrContactId Conversation id or phone number for fetching the conversation
+     * @param string $phoneOrContactId Conversation id or phone number for fetching the contact
      *
      * @return ApiResponse<{attribute: ContactAttribute, value: string}[]>
      *
@@ -29,7 +29,7 @@ interface ContactsContract
 
     /**
      * Set an attribute value for the contact
-     * @param string $phoneOrContactId Conversation id or phone number for fetching the conversation
+     * @param string $phoneOrContactId Conversation id or phone number for fetching the contact
      * @param array $data
      * Available options:
      *  contact_attribute_id => string      The id of the attribute
@@ -48,7 +48,7 @@ interface ContactsContract
 
     /**
      * Unset a contact attribute
-     * @param string $phoneOrContactId Conversation id or phone number for fetching the conversation
+     * @param string $phoneOrContactId Conversation id or phone number for fetching the contact
      * @param array $data
      * Available options:
      *  contact_attribute_id => string      The id of the attribute
@@ -63,5 +63,20 @@ interface ContactsContract
      * @throws RateLimitException
      */
     public function unsetContactAttributeValue(string $phoneOrContactId, array $data): ApiResponse;
+
+    /**
+     * Unsubscribe the contact
+     * @param string $phoneOrContactId Conversation id or phone number for fetching the contact
+     *
+     * @return ApiResponse
+     *
+     * @throws GuzzleException
+     * @throws UnauthorizedException
+     * @throws ResourceNotFoundException
+     * @throws NetworkException
+     * @throws ValidationException
+     * @throws RateLimitException
+     */
+    public function unsubscribeContact(string $phoneOrContactId): ApiResponse;
 
 }
