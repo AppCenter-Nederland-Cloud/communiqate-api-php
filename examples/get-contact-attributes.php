@@ -7,25 +7,16 @@ use CommuniQate\Exceptions\ValidationException;
 
 const API_KEY = '';
 
-const TEMPLATE_MESSAGE_ID = '';
 const PHONE_NUMBER = '+31612345678';
-const DATE = '2022-12-20T12:00:00Z';
 
 $communiqate = new ApiClient(API_KEY);
 
 try {
-    $response = $communiqate->conversations()->sendMessage(PHONE_NUMBER, [
-        'scheduled_at' => DATE,
-        'template_message_id' => TEMPLATE_MESSAGE_ID,
-        'variables' => [
-            'header' => '',
-            'body' => [],
-            'buttons' => [],
-        ]
-    ]);
+    $response = $communiqate->contacts()->getContactAttributeValues(PHONE_NUMBER);
+
 
     if ($response->success) {
-        print "Successfully scheduled message! ID: {$response->data['id']}  \n";
+        print "Contacts for " . PHONE_NUMBER . ": \n";
         var_dump($response->data);
     }
 } catch (ValidationException $exception) {

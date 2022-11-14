@@ -7,25 +7,19 @@ use CommuniQate\Exceptions\ValidationException;
 
 const API_KEY = '';
 
-const TEMPLATE_MESSAGE_ID = '';
 const PHONE_NUMBER = '+31612345678';
-const DATE = '2022-12-20T12:00:00Z';
+const CONTACT_ATTRIBUTE_ID = '';
 
 $communiqate = new ApiClient(API_KEY);
 
 try {
-    $response = $communiqate->conversations()->sendMessage(PHONE_NUMBER, [
-        'scheduled_at' => DATE,
-        'template_message_id' => TEMPLATE_MESSAGE_ID,
-        'variables' => [
-            'header' => '',
-            'body' => [],
-            'buttons' => [],
-        ]
+    $response = $communiqate->contacts()->unsetContactAttributeValue(PHONE_NUMBER, [
+        'contact_attribute_id' => CONTACT_ATTRIBUTE_ID,
     ]);
 
+
     if ($response->success) {
-        print "Successfully scheduled message! ID: {$response->data['id']}  \n";
+        print "Contact attributes successfully unset for: " . PHONE_NUMBER . " \n";
         var_dump($response->data);
     }
 } catch (ValidationException $exception) {

@@ -6,9 +6,11 @@ use CommuniQate\ApiClient;
 
 const API_KEY = '';
 
+const PHONE_NUMBER = '+31612345678';
+
 $communiqate = new ApiClient(API_KEY);
 
-$response = $communiqate->contacts()->unsubscribeContact('+31612345678');
+$response = $communiqate->contacts()->unsubscribeContact(PHONE_NUMBER);
 
 if ($response->success) {
     print "Successfully unsubscribed the contact! \n";
