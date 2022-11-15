@@ -68,12 +68,16 @@ interface ConversationsContract
      * @param string $conversationIdOrPhone Conversation id or phone number for fetching the conversation
      * @param array $body
      * Available options:
-     *  scheduled_at => string|null     A string containing a date in the future. UTC format. Set to 'null' to send instantly
+     *  scheduled_at => string|null     (Optional) A string containing a date in the future. UTC format. Set to 'null' to send instantly
      *  template_message_id => string   The id of the template message that should be sent
-     *  variables   => string[]         An array of variables for the template message
-     *      header  => string           A string containing the header variable. (Max 14 characters)
-     *      body    => string[]         An array containing the body variables.
-     *      buttons => string[]         An array containing the button variables. (Max 20 characters)
+     *  variables   => Array            (Optional) An array of variables for the template message
+     *      header      => string       (Optional) A string containing the header variable. (Max 14 characters)
+     *      body        => string[]     (Optional) An array containing the body variables.
+     *      buttons     => string[]     (Optional) An array containing the button variables. (Max 20 characters)
+     *  contact     => Array            (Optional) An array containing additional contact information. (for new contacts only)
+     *      first_name  => string       (Optional) The first name of the contact (for new contacts only)
+     *      last_name   => string       (Optional) The last name of the contact (for new contacts only)
+     *      country     => string       (Optional) An Alpha2 country code for the contact (for new contacts only)
      *
      * @return ApiResponse<MessageObject>
      *
