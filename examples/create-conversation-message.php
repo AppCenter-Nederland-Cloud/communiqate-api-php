@@ -21,6 +21,11 @@ try {
             'header' => '',
             'body' => [],
             'buttons' => [],
+        ],
+        'contact' => [ //Only use for new contacts. Will be ignored for existing contacts.
+            'first_name' => 'Frits',
+            'last_name' => 'Fictief',
+            'country' => 'nl'
         ]
     ]);
 
