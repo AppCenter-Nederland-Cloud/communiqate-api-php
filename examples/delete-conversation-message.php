@@ -6,22 +6,18 @@ use CommuniQate\ApiClient;
 use CommuniQate\Exceptions\ValidationException;
 
 const API_KEY = '';
-
+const ORGANIZATION_ID = '';
 const MESSAGE_ID = '';
 const PHONE_NUMBER = '+31612345678';
 
-
-$communiqate = new ApiClient(API_KEY);
+$communiqate = new ApiClient(API_KEY, ORGANIZATION_ID);
 
 try {
-    $response = $communiqate->conversations()->deleteMessage(PHONE_NUMBER, [
-        'message_id' => MESSAGE_ID,
-    ]);
-
+    $response = $communiqate->messages()->deleteMessage(MESSAGE_ID);
 
     if ($response->success) {
-        print "Successfully deleted message! ID: ". MESSAGE_ID ."  \n";
         var_dump($response->data);
+        print "Successfully deleted message! ID: " . MESSAGE_ID . "  \n";
     }
 } catch (ValidationException $exception) {
     print $exception->getMessage() . "\n";

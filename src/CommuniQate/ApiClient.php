@@ -14,13 +14,13 @@ class ApiClient
     /**
      * Major version of the API client
      */
-    public const VERSION = 1;
+    public const VERSION = 2;
 
     /**
      * The default API endpoint
      * @var string
      */
-    private string $apiEndpoint = 'https://api.communiqate.nl/api/v1/';
+    private string $apiEndpoint = 'https://api.acncloud.nl/api/v1/';
 
     /**
      * The Bearer api token
@@ -35,12 +35,19 @@ class ApiClient
     private Client $httpClient;
 
     /**
+     * Id of the organization making the request
+     * @var string
+     */
+    private string $organizationId;
+
+    /**
      * @param string $apiKey
+     * @param string $organizationId
      * @param string|null $apiEndpoint
      * @throws InvalidApiKeyException
      * @throws InvalidEndpointException
      */
-    public function __construct(string $apiKey, ?string $apiEndpoint = null)
+    public function __construct(string $apiKey, string $organizationId, ?string $apiEndpoint = null)
     {
         $this->apiKey = $apiKey;
 
@@ -49,7 +56,7 @@ class ApiClient
         }
 
         $this->httpClient = new Client([
-            'base_uri' => $this->apiEndpoint,
+            'base_uri' => $this->apiEndpoint . "$organizationId/communiqate/",
             'headers' => [
                 'Content-Type' => 'application/json',
                 'User-Agent' => 'CommuniQate-PHP-Client-' . self::VERSION,

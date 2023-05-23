@@ -68,7 +68,6 @@ abstract class BaseResource
         $array['status'] = $statusCode;
         $responseObject = ApiResponse::fromArray($array);
 
-
         if (($statusCode !== 200 && $statusCode !== 201) || !$responseObject->success) {
             switch ($responseObject->status) {
                 case 401:

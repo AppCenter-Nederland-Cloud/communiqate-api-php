@@ -12,9 +12,65 @@ use GuzzleHttp\Exception\GuzzleException;
 
 interface ContactsContract
 {
+
     /**
-     * Gets a contact by phoneNumber or contact id
-     * @param string $phoneOrContactId Conversation id or phone number for fetching the contact
+     * Add a new contact
+     * @see https://appcenter-nederland.stoplight.io/docs/acn-cloud/64c7f5e302194-add-contact
+     *
+     * @param array $data
+     * @return ApiResponse
+     * @throws NetworkException
+     * @throws RateLimitException
+     * @throws ValidationException
+     * @throws ResourceNotFoundException
+     * @throws UnauthorizedException
+     * @throws GuzzleException
+     */
+    public function addContact(array $data): ApiResponse;
+
+    /**
+     * Delete a contact by phoneNumber or contact id
+     * @see https://appcenter-nederland.stoplight.io/docs/acn-cloud/54e5af846897f-get-contact
+     *
+     * @param string $phoneOrContactId
+     * @return ApiResponse
+     * @throws NetworkException
+     * @throws RateLimitException
+     * @throws ValidationException
+     * @throws ResourceNotFoundException
+     * @throws UnauthorizedException
+     * @throws GuzzleException
+     *
+     */
+    public function deleteContact(string $phoneOrContactId): ApiResponse;
+
+    /**
+     * Get a contact by phoneNumber or contact id
+     * @see https://appcenter-nederland.stoplight.io/docs/acn-cloud/54e5af846897f-get-contact
+     *
+     * @param string $phoneOrContactId
+     * @return ApiResponse
+     * @throws NetworkException
+     * @throws RateLimitException
+     * @throws ValidationException
+     * @throws ResourceNotFoundException
+     * @throws UnauthorizedException
+     * @throws GuzzleException
+     *
+     */
+    public function getContact(string $phoneOrContactId): ApiResponse;
+
+
+    /**
+     * Get a paginated list of contacts
+     * @see https://appcenter-nederland.stoplight.io/docs/acn-cloud/6bc694dfd1fa9-list-all-contacts
+     *
+     * @param int $page
+     * @param int $rowsPerPage
+     * @param array|null $filters
+     * @param string|null $sortField
+     * @param string|null $sortDir
+     * @param string|null $search
      *
      * @return ApiResponse
      * @throws NetworkException
@@ -24,16 +80,21 @@ interface ContactsContract
      * @throws UnauthorizedException
      * @throws GuzzleException
      */
-    public function getContact(string $phoneOrContactId): ApiResponse;
+    public function getContacts(
+        int     $page = 1,
+        int     $rowsPerPage = 10,
+        ?array  $filters = null,
+        ?string $sortField = null,
+        ?string $sortDir = null,
+        ?string $search = null
+    ): ApiResponse;
 
     /**
      * Updates a contact by phoneNumber or contact id
-     * @param string $phoneOrContactId Conversation id or phone number for fetching the contact
+     * @see https://appcenter-nederland.stoplight.io/docs/acn-cloud/d059b6edf9c8f-update-contact
+     *
+     * @param string $phoneOrContactId
      * @param array $data
-     *  first_name           => string      New first name of the contact
-     *  last_name            => string      New last name of the contact
-     *  country              => string      New country of the contact, must be ISO 3166 Alpha-2
-     *  email                => string      New email address of the contact, must be a valid email
      *
      * @return ApiResponse
      * @throws NetworkException
@@ -45,71 +106,5 @@ interface ContactsContract
      */
     public function updateContact(string $phoneOrContactId, array $data): ApiResponse;
 
-    /**
-     * Get a list of all attributes & values set for the contact
-     * @param string $phoneOrContactId Conversation id or phone number for fetching the contact
-     *
-     * @return ApiResponse<{attribute: ContactAttribute, value: string}[]>
-     *
-     * @throws GuzzleException
-     * @throws UnauthorizedException
-     * @throws ResourceNotFoundException
-     * @throws NetworkException
-     * @throws ValidationException
-     * @throws RateLimitException
-     */
-    public function getContactAttributeValues(string $phoneOrContactId): ApiResponse;
-
-    /**
-     * Set an attribute value for the contact
-     * @param string $phoneOrContactId Conversation id or phone number for fetching the contact
-     * @param array $data
-     * Available options:
-     *  contact_attribute_id => string      The id of the attribute
-     *  value                => string      The value that should be set. Keep the type of the attribute in mind when setting this
-     *
-     * @return ApiResponse
-     *
-     * @throws GuzzleException
-     * @throws UnauthorizedException
-     * @throws ResourceNotFoundException
-     * @throws NetworkException
-     * @throws ValidationException
-     * @throws RateLimitException
-     */
-    public function setContactAttributeValue(string $phoneOrContactId, array $data): ApiResponse;
-
-    /**
-     * Unset a contact attribute
-     * @param string $phoneOrContactId Conversation id or phone number for fetching the contact
-     * @param array $data
-     * Available options:
-     *  contact_attribute_id => string      The id of the attribute
-     *
-     * @return ApiResponse
-     *
-     * @throws GuzzleException
-     * @throws UnauthorizedException
-     * @throws ResourceNotFoundException
-     * @throws NetworkException
-     * @throws ValidationException
-     * @throws RateLimitException
-     */
-    public function unsetContactAttributeValue(string $phoneOrContactId, array $data): ApiResponse;
-
-    /**
-     * Unsubscribe the contact
-     * @param string $phoneOrContactId Conversation id or phone number for fetching the contact
-     *
-     * @return ApiResponse
-     *
-     * @throws GuzzleException
-     * @throws UnauthorizedException
-     * @throws ResourceNotFoundException
-     * @throws NetworkException
-     * @throws ValidationException
-     * @throws RateLimitException
-     */
-    public function unsubscribeContact(string $phoneOrContactId): ApiResponse;
 
 }

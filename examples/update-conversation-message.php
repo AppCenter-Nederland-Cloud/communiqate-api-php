@@ -6,23 +6,20 @@ use CommuniQate\ApiClient;
 use CommuniQate\Exceptions\ValidationException;
 
 const API_KEY = '';
-
+const ORGANIZATION_ID = '';
 const MESSAGE_ID = '';
-const PHONE_NUMBER = '+31612345678';
-const NEW_DATE = '2022-12-20T12:00:00Z';
+const NEW_DATE = '2023-05-25T12:00:00Z';
 
-$communiqate = new ApiClient(API_KEY);
+$communiqate = new ApiClient(API_KEY, ORGANIZATION_ID);
 
 try {
-    $response = $communiqate->conversations()->updateMessage(PHONE_NUMBER, [
-        'message_id' => MESSAGE_ID,
+    $response = $communiqate->messages()->updateMessage(MESSAGE_ID, [
         'scheduled_at' => NEW_DATE,
     ]);
 
-
     if ($response->success) {
-        print "Successfully updated message! ID: ". MESSAGE_ID . " \n";
         var_dump($response->data);
+        print "Successfully updated message! ID: " . MESSAGE_ID . " \n";
     }
 } catch (ValidationException $exception) {
     print $exception->getMessage() . "\n";

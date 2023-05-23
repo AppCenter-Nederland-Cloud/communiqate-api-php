@@ -2,11 +2,31 @@
 
 namespace CommuniQate\Traits;
 
+use CommuniQate\Resources\ContactAttributes;
 use CommuniQate\Resources\Contacts;
 use CommuniQate\Resources\Conversations;
+use CommuniQate\Resources\Messages;
 
 trait HandlesResources
 {
+    /**
+     * Contact attributes resource
+     * @return ContactAttributes
+     */
+    public function contactAttributes(): ContactAttributes
+    {
+        return new ContactAttributes($this->getHttpClient());
+    }
+
+    /**
+     * Contacts resource
+     * @return Contacts
+     */
+    public function contacts(): Contacts
+    {
+        return new Contacts($this->getHttpClient());
+    }
+
     /**
      * Conversations resource
      * @return Conversations
@@ -17,12 +37,12 @@ trait HandlesResources
     }
 
     /**
-     * Contacts resource
-     * @return Contacts
+     * Messages resource
+     * @return Messages
      */
-    public function contacts(): Contacts
+    public function messages(): Messages
     {
-        return new Contacts($this->getHttpClient());
+        return new Messages($this->getHttpClient());
     }
 
 }
