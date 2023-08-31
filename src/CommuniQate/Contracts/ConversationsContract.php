@@ -2,10 +2,12 @@
 
 namespace CommuniQate\Contracts;
 
+use CommuniQate\Exceptions\ApiException;
+use CommuniQate\Exceptions\AuthenticationException;
+use CommuniQate\Exceptions\AuthorizationException;
 use CommuniQate\Exceptions\NetworkException;
 use CommuniQate\Exceptions\RateLimitException;
 use CommuniQate\Exceptions\ResourceNotFoundException;
-use CommuniQate\Exceptions\UnauthorizedException;
 use CommuniQate\Exceptions\ValidationException;
 use CommuniQate\Objects\ApiResponse;
 use GuzzleHttp\Exception\GuzzleException;
@@ -19,8 +21,10 @@ interface ConversationsContract
      * @param string $conversationId
      *
      * @return ApiResponse
+     * @throws ApiException
+     * @throws AuthenticationException
      * @throws GuzzleException
-     * @throws UnauthorizedException
+     * @throws AuthorizationException
      * @throws ResourceNotFoundException
      * @throws NetworkException
      * @throws ValidationException
@@ -36,8 +40,10 @@ interface ConversationsContract
      * @param array $data
      *
      * @return ApiResponse
+     * @throws ApiException
+     * @throws AuthenticationException
      * @throws GuzzleException
-     * @throws UnauthorizedException
+     * @throws AuthorizationException
      * @throws ResourceNotFoundException
      * @throws NetworkException
      * @throws ValidationException

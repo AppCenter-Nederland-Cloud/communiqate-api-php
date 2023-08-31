@@ -20,23 +20,15 @@ class ApiException extends Exception
     protected array $errors = [];
 
     /**
-     * @param ApiResponse $responseObject
+     * @param ApiResponse|null $responseObject
      * @param string|null $message
-     * @param array $errors
+     * @param array|null $errors
      */
     public function __construct(?ApiResponse $responseObject = null, ?string $message = null, ?array $errors = null)
     {
-        parent::__construct($message ?? $responseObject->message ?? '');
+        parent::__construct($message ?? "Unhandled api exception. Response message: $responseObject->message");
         $this->responseObject = $responseObject;
         $this->errors = $errors ?? $responseObject->errors ?? [];
-    }
-
-    /**
-     * @return ApiResponse
-     */
-    public function getResponseObject(): ApiResponse
-    {
-        return $this->responseObject;
     }
 
     /**
@@ -45,5 +37,13 @@ class ApiException extends Exception
     public function getErrors(): array
     {
         return $this->errors;
+    }
+
+    /**
+     * @return ApiResponse
+     */
+    public function getResponseObject(): ApiResponse
+    {
+        return $this->responseObject;
     }
 }

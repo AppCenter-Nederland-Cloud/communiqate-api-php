@@ -2,10 +2,12 @@
 
 namespace CommuniQate\Contracts;
 
+use CommuniQate\Exceptions\ApiException;
+use CommuniQate\Exceptions\AuthenticationException;
+use CommuniQate\Exceptions\AuthorizationException;
 use CommuniQate\Exceptions\NetworkException;
 use CommuniQate\Exceptions\RateLimitException;
 use CommuniQate\Exceptions\ResourceNotFoundException;
-use CommuniQate\Exceptions\UnauthorizedException;
 use CommuniQate\Exceptions\ValidationException;
 use CommuniQate\Objects\ApiResponse;
 use GuzzleHttp\Exception\GuzzleException;
@@ -19,11 +21,13 @@ interface ContactsContract
      *
      * @param array $data
      * @return ApiResponse
+     * @throws ApiException
+     * @throws AuthenticationException
      * @throws NetworkException
      * @throws RateLimitException
      * @throws ValidationException
      * @throws ResourceNotFoundException
-     * @throws UnauthorizedException
+     * @throws AuthorizationException
      * @throws GuzzleException
      */
     public function addContact(array $data): ApiResponse;
@@ -34,11 +38,13 @@ interface ContactsContract
      *
      * @param string $phoneOrContactId
      * @return ApiResponse
+     * @throws ApiException
+     * @throws AuthenticationException
      * @throws NetworkException
      * @throws RateLimitException
      * @throws ValidationException
      * @throws ResourceNotFoundException
-     * @throws UnauthorizedException
+     * @throws AuthorizationException
      * @throws GuzzleException
      *
      */
@@ -50,11 +56,13 @@ interface ContactsContract
      *
      * @param string $phoneOrContactId
      * @return ApiResponse
+     * @throws ApiException
+     * @throws AuthenticationException
      * @throws NetworkException
      * @throws RateLimitException
      * @throws ValidationException
      * @throws ResourceNotFoundException
-     * @throws UnauthorizedException
+     * @throws AuthorizationException
      * @throws GuzzleException
      *
      */
@@ -73,11 +81,13 @@ interface ContactsContract
      * @param string|null $search
      *
      * @return ApiResponse
+     * @throws ApiException
+     * @throws AuthenticationException
      * @throws NetworkException
      * @throws RateLimitException
      * @throws ValidationException
      * @throws ResourceNotFoundException
-     * @throws UnauthorizedException
+     * @throws AuthorizationException
      * @throws GuzzleException
      */
     public function getContacts(
@@ -97,11 +107,13 @@ interface ContactsContract
      * @param array $data
      *
      * @return ApiResponse
+     * @throws ApiException
+     * @throws AuthenticationException
      * @throws NetworkException
      * @throws RateLimitException
      * @throws ValidationException
      * @throws ResourceNotFoundException
-     * @throws UnauthorizedException
+     * @throws AuthorizationException
      * @throws GuzzleException
      */
     public function updateContact(string $phoneOrContactId, array $data): ApiResponse;

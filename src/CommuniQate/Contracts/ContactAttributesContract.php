@@ -2,10 +2,12 @@
 
 namespace CommuniQate\Contracts;
 
+use CommuniQate\Exceptions\ApiException;
+use CommuniQate\Exceptions\AuthenticationException;
+use CommuniQate\Exceptions\AuthorizationException;
 use CommuniQate\Exceptions\NetworkException;
 use CommuniQate\Exceptions\RateLimitException;
 use CommuniQate\Exceptions\ResourceNotFoundException;
-use CommuniQate\Exceptions\UnauthorizedException;
 use CommuniQate\Exceptions\ValidationException;
 use CommuniQate\Objects\ApiResponse;
 use GuzzleHttp\Exception\GuzzleException;
@@ -19,11 +21,13 @@ interface ContactAttributesContract
      *
      * @param array $data
      * @return ApiResponse
+     * @throws ApiException
+     * @throws AuthenticationException
      * @throws NetworkException
      * @throws RateLimitException
      * @throws ValidationException
      * @throws ResourceNotFoundException
-     * @throws UnauthorizedException
+     * @throws AuthorizationException
      * @throws GuzzleException
      */
     public function addContactAttribute(array $data): ApiResponse;
@@ -33,11 +37,13 @@ interface ContactAttributesContract
      * @see https://appcenter-nederland.stoplight.io/docs/acn-cloud/867e5fc73043f-list-all-contact-attributes
      *
      * @return ApiResponse
+     * @throws ApiException
+     * @throws AuthenticationException
      * @throws NetworkException
      * @throws RateLimitException
      * @throws ValidationException
      * @throws ResourceNotFoundException
-     * @throws UnauthorizedException
+     * @throws AuthorizationException
      * @throws GuzzleException
      */
     public function getAttributes(): ApiResponse;
@@ -49,9 +55,10 @@ interface ContactAttributesContract
      * @param string $phoneOrContactId Conversation id or phone number for fetching the contact
      *
      * @return ApiResponse
-     *
+     * @throws ApiException
+     * @throws AuthenticationException
      * @throws GuzzleException
-     * @throws UnauthorizedException
+     * @throws AuthorizationException
      * @throws ResourceNotFoundException
      * @throws NetworkException
      * @throws ValidationException
@@ -68,11 +75,13 @@ interface ContactAttributesContract
      * @param array $data
      *
      * @return ApiResponse
+     * @throws ApiException
+     * @throws AuthenticationException
      * @throws NetworkException
      * @throws RateLimitException
      * @throws ValidationException
      * @throws ResourceNotFoundException
-     * @throws UnauthorizedException
+     * @throws AuthorizationException
      * @throws GuzzleException
      */
     public function setAttribute(string $contactAttributeId, string $contactId, array $data): ApiResponse;
@@ -85,11 +94,13 @@ interface ContactAttributesContract
      * @param array $data
      *
      * @return ApiResponse
+     * @throws ApiException
+     * @throws AuthenticationException
      * @throws NetworkException
      * @throws RateLimitException
      * @throws ValidationException
      * @throws ResourceNotFoundException
-     * @throws UnauthorizedException
+     * @throws AuthorizationException
      * @throws GuzzleException
      */
     public function setMultipleAttributes(string $contactId, array $data): ApiResponse;

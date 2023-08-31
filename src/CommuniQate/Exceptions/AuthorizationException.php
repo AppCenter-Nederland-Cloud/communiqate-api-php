@@ -4,7 +4,7 @@ namespace CommuniQate\Exceptions;
 
 use CommuniQate\Objects\ApiResponse;
 
-class UnauthorizedException extends ApiException
+class AuthorizationException extends ApiException
 {
 
     public function __construct(ApiResponse $responseObject)

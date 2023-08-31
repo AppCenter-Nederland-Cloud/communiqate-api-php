@@ -2,10 +2,12 @@
 
 namespace CommuniQate\Resources;
 
+use CommuniQate\Exceptions\ApiException;
+use CommuniQate\Exceptions\AuthenticationException;
+use CommuniQate\Exceptions\AuthorizationException;
 use CommuniQate\Exceptions\NetworkException;
 use CommuniQate\Exceptions\RateLimitException;
 use CommuniQate\Exceptions\ResourceNotFoundException;
-use CommuniQate\Exceptions\UnauthorizedException;
 use CommuniQate\Exceptions\ValidationException;
 use CommuniQate\Objects\ApiResponse;
 use GuzzleHttp\Client;
@@ -42,11 +44,13 @@ abstract class BaseResource
      * @return ApiResponse
      *
      * @throws NetworkException
+     * @throws AuthenticationException
      * @throws RateLimitException
      * @throws ResourceNotFoundException
-     * @throws UnauthorizedException
+     * @throws AuthorizationException
      * @throws ValidationException
      * @throws GuzzleException
+     * @throws ApiException
      */
     protected function makeRequest(string $method, string $uri, array $data = [], array $requestOptions = []): ApiResponse
     {
@@ -71,7 +75,9 @@ abstract class BaseResource
         if (($statusCode !== 200 && $statusCode !== 201) || !$responseObject->success) {
             switch ($responseObject->status) {
                 case 401:
-                    throw new UnauthorizedException($responseObject);
+                    throw new AuthenticationException($responseObject);
+                case 403:
+                    throw new AuthorizationException($responseObject);
                 case 404:
                     throw new ResourceNotFoundException($responseObject);
                 case 422:
@@ -79,8 +85,9 @@ abstract class BaseResource
                 case 429:
                     throw new RateLimitException($responseObject);
                 case 500:
-                default:
                     throw new NetworkException($responseObject);
+                default:
+                    throw new ApiException($responseObject);
             }
         }
 
