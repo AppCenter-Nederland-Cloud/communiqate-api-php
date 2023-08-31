@@ -37,16 +37,15 @@ above.
 ```php
 <?php
 
-use CommuniQate\ApiClient;
-use CommuniQate\Exceptions\ValidationException;
 
 const API_KEY = '';
 const ORGANIZATION_ID = '';
 const TEMPLATE_MESSAGE_ID = '';
 const PHONE_NUMBER = '+31612345678'; //contacts phone number (E.164 format)
 
-$communiqate = new ApiClient(API_KEY, ORGANIZATION_ID);
+$communiqate = new \CommuniQate\ApiClient(API_KEY, ORGANIZATION_ID);
 
+try {
 $response = $communiqate->messages()->sendMessage(PHONE_NUMBER, [
         'type' => 'TEMPLATE',
         'template' => [
@@ -67,4 +66,8 @@ $response = $communiqate->messages()->sendMessage(PHONE_NUMBER, [
         print "Successfully created message! ID: {$response->data['id']}  \n";
     }
 
+} catch (\CommuniQate\Exceptions\ApiException $apiException) {
+        print "Send message request failed \n";
+        var_dump(["response" => $apiException->getResponseObject()]);
+}
 ```
