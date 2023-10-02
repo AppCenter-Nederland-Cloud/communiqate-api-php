@@ -5,6 +5,8 @@ namespace CommuniQate\Resources;
 use CommuniQate\Exceptions\ApiException;
 use CommuniQate\Exceptions\AuthenticationException;
 use CommuniQate\Exceptions\AuthorizationException;
+use CommuniQate\Exceptions\ContactOptOutException;
+use CommuniQate\Exceptions\InvalidPhoneException;
 use CommuniQate\Exceptions\NetworkException;
 use CommuniQate\Exceptions\RateLimitException;
 use CommuniQate\Exceptions\ResourceNotFoundException;
@@ -73,6 +75,17 @@ abstract class BaseResource
         $responseObject = ApiResponse::fromArray($array);
 
         if (($statusCode !== 200 && $statusCode !== 201) || !$responseObject->success) {
+
+            $reason = $responseObject->errors['reason'] ?? null;
+
+            if ($reason == 'contact_opt_out') {
+                throw new ContactOptOutException($responseObject);
+            }
+
+            if ($reason == 'invalid_phone_number') {
+                throw new InvalidPhoneException($responseObject);
+            }
+
             switch ($responseObject->status) {
                 case 401:
                     throw new AuthenticationException($responseObject);
