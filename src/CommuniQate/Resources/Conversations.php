@@ -14,6 +14,6 @@ class Conversations extends BaseResource implements ConversationsContract
 
     public function updateConversation(string $conversationId, array $data): ApiResponse
     {
-        return $this->makeRequest('GET', "conversations/$conversationId", $data);
+        return $this->makeRequest('PATCH', "conversations/$conversationId", $data);
     }
 }
